@@ -1,0 +1,24 @@
+{
+  "name": "staddress",
+  "version": "1.0.0",
+  "description": "Retrieve address information based on Country and Postal Code",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leotome/standardaddress.git"
+  },
+  "author": "Leonardo Oliveira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leotome/standardaddress/issues"
+  },
+  "homepage": "https://github.com/leotome/standardaddress#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
+    "express": "^4.17.1"
+  }
+}
