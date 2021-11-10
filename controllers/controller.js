@@ -90,9 +90,12 @@ function getPT(PostalCode, res){
 							}
 							else if(j.attribs.class == 'local'){
 								var other = j.children[0].data.split(',');
+								console.log(other[0])
+								console.log(other[1])
+								console.log(other[2])
 								var council = other[0];
 								var city = other[1];
-								var state = (other[2] === undefined) ? city : state;
+								var state = (other[2] === undefined) ? city : other[2];
 								result['council'] = result.council === undefined ? council.trim() : result.council;
 								result['city'] = result.city === undefined ? city.trim() : result.city;
 								result['state'] = result.state === undefined ? state.trim() : result.state;
