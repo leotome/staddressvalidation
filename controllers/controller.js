@@ -85,22 +85,22 @@ function getPT(PostalCode, res){
 					for(j of children){
 						if(j.attribs != undefined){
 							if(j.attribs.class == 'search-title'){
-								var street = j.children[0].data
-								result['street'] = street
+								var street = j.children[0].data;
+								result['street'] = street;
 							}
 							else if(j.attribs.class == 'local'){
-								var other = j.children[0].data.split(',')
-								var council = other[0]
-								var city = other[1]
-								var state = other[2]
-								result['council'] = council.trim()
-								result['city'] = city.trim()
-								result['state'] = state.trim()
+								var other = j.children[0].data.split(',');
+								var council = other[0];
+								var city = other[1];
+								var state = (other[2] === undefined) ? city : state;
+								result['council'] = result.council === undefined ? council.trim() : result.council;
+								result['city'] = result.city === undefined ? city.trim() : result.city;
+								result['state'] = result.state === undefined ? state.trim() : result.state;
 							}						
 							else if(j.attribs.class == 'cp'){
-								var postalcode = j.children[0].data
-								result['postalcode'] = postalcode
-								result['country'] = 'PT'
+								var postalcode = j.children[0].data;
+								result['postalcode'] = postalcode;
+								result['country'] = 'PT';
 							}
 						}
 					}
