@@ -13,7 +13,7 @@ exports.search = (req, res) => {
 				var result = getPT(RequestPostalCode, res);
 			} else {
 				return res.send({
-					status : 100, 
+					status : 400, 
 					message : 'Incorrect string format for PT. Please ensure that you\'re using the format XXXX-XXX.'
 				});
 			}
@@ -26,14 +26,14 @@ exports.search = (req, res) => {
 				var result = getBR(RequestPostalCode, res);
 			} else {
 				return res.send({
-					status : 100, 
+					status : 400, 
 					message : 'Incorrect string format for BR. Please ensure that you\'re using the format XXXXX-XXX.'
 				});
 			}
 			break;				
 		default:
 			return res.send({
-				status : -1, 
+				status : 400, 
 				message : 'Unsupported country'
 			});
 			break;
@@ -65,33 +65,50 @@ function getPT(PostalCode, res){
 		const html = response.data;
 		const $ = cheerio.load(html);
 		const firstResult = $('div.places', html).contents()[0];
-		var childNodes = firstResult.childNodes;
+		const errorResult = $('div.alert-message', html).contents()[0];
+		var notfound = (firstResult === undefined && errorResult !== undefined);
+		var badserver = (firstResult === undefined && errorResult === undefined);
 		var result = {}
-		for(i of childNodes){
-			var name = i.name;
-			if(name == 'span'){
-				var children = i.children;
-				for(j of children){
-					if(j.attribs != undefined){
-						if(j.attribs.class == 'search-title'){
-							var street = j.children[0].data
-							result['street'] = street
-						}
-						else if(j.attribs.class == 'local'){
-							var other = j.children[0].data.split(',')
-							var council = other[0]
-							var city = other[1]
-							var state = other[2]
-							result['council'] = council.trim()
-							result['city'] = city.trim()
-							result['state'] = state.trim()
-						}						
-						else if(j.attribs.class == 'cp'){
-							var postalcode = j.children[0].data
-							result['postalcode'] = postalcode
-							result['country'] = 'PT'
+		if(notfound == false){
+			var childNodes = firstResult.childNodes;
+			for(i of childNodes){
+				var name = i.name;
+				if(name == 'span'){
+					var children = i.children;
+					for(j of children){
+						if(j.attribs != undefined){
+							if(j.attribs.class == 'search-title'){
+								var street = j.children[0].data
+								result['street'] = street
+							}
+							else if(j.attribs.class == 'local'){
+								var other = j.children[0].data.split(',')
+								var council = other[0]
+								var city = other[1]
+								var state = other[2]
+								result['council'] = council.trim()
+								result['city'] = city.trim()
+								result['state'] = state.trim()
+							}						
+							else if(j.attribs.class == 'cp'){
+								var postalcode = j.children[0].data
+								result['postalcode'] = postalcode
+								result['country'] = 'PT'
+							}
 						}
 					}
+				}
+			}
+		} else {
+			if(badserver == true){
+				result = {
+					status : 503, 
+					message : 'Service Unavailable.'
+				}
+			} else {
+				result = {
+					status : 404, 
+					message : 'Not found.'
 				}
 			}
 		}
