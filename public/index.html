@@ -1,5 +1,63 @@
 <html>
-    <body>
-        <p>Hello world</p>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Address Validation API | Leonardo Oliveira</title>
+        <script src="js/utils.js"></script>
+    </head>
+    <body onload="onLoad()">
+        <header>
+            <h1>Address Validation API</h1>
+        </header>
+        <section id="section_introduction">
+            <h1>Introduction</h1>
+            <p>The Address Validation Application Programming Interface (API) can provide direct automated integration in your application about correct and valid address information.</p>
+            <p>This API uses two inputs to validate an address: "Country" and "Postal Code". When both are provided, and if valid data is provided, the server will be able to return the full address in JSON format.</p>
+        </section>
+        <section id="section_what">
+            <h1>What does it does for you?</h1>
+            <p>The Address Validation API is a valuable addition to any business. It allows to reduce the chance of bad data quality, and avoids incorrect information, which can interfere with the fluidity of your business. It's currently available to retrieve information about the following countries:</p>
+            <ul>
+                <li>Brazil</li>
+                <li>Portugal</li>
+            </ul>
+        </section>
+        <section id="section_howto">
+            <h1>How to operate?</h1>
+            <p>This API is REST-compliant, which means, it uses the HTTP verb "GET".</p>
+            <p id="section_howto_apiuri">If you see this message, please contact support.</p>
+            <p>Where:</p>
+            <ul>
+                <li>{A} is the Country in <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2</a> format;</li>
+                <li>{B} is the Postal Code.</li>
+            </ul>
+            <p>The server returns the following JSON structure:</p>
+            <p>
+                <pre>
+                <code>
+                {
+                    "street" : string,
+                    "postalcode" : string,
+                    "country" : string,
+                    "council" : string,
+                    "city" : string,
+                    "state" : string
+                }
+                </code>
+                </pre>
+            </p>
+            <p><b>Example</b></p>
+            <p id="section_howto_apiuri_example">If you see this message, please contact support.</p>
+            <p>Returns the following:</p>
+            <p>
+                <pre>
+                <code id="section_howto_apiuri_example_code">
+                Loading...
+                </code>
+                </pre>
+            </p>
+        </section>        
+        <footer>
+            <p id="footer"></p>
+        </footer>
     </body>
 </html>
