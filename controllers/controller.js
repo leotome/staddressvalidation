@@ -42,17 +42,24 @@ exports.search = (req, res) => {
 
 function getBR(PostalCode, res){
 	const SplitPostalCode = PostalCode.split('-');
-	const NormPostalCoide = SplitPostalCode[0] + SplitPostalCode[1];
-	axios.get(`https://viacep.com.br/ws/${NormPostalCoide}/json/`)
+	const ConvertString = SplitPostalCode[0] + SplitPostalCode[1];
+	axios.get(`https://viacep.com.br/ws/${ConvertString}/json/`)
 	.then((response) => {
 		const json = response.data
-		var result = {}
-		result['street'] = json.logadouro
-		result['council'] = json.bairro
-		result['city'] = json.localidade
-		result['state'] = json.uf
-		result['postalcode'] = json.cep
-		result['country'] = 'BR'
+		var result = {};
+		if(json.erro === undefined){
+			result['street'] = json.logadouro;
+			result['council'] = json.bairro;
+			result['city'] = json.localidade;
+			result['state'] = json.uf;
+			result['postalcode'] = json.cep;
+			result['country'] = 'BR';
+		} else {
+			result = {
+				status : 404, 
+				message : 'Not found.'
+			}
+		}
 		res.send(result);
 	})
 	return {}
