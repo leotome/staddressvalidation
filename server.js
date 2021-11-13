@@ -6,7 +6,7 @@ app.use(express.urlencoded({ extended : true }));
 
 require("./routes/routes")(app);
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
     console.log(`The server is running on ${PORT}`);
