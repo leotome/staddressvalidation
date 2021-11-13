@@ -40,5 +40,4 @@ async function queryServer(URI_Request){
     let response = await fetch(URI_Request);
     let data = await response.json();
     return data;
-
 }

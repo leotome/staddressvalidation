@@ -48,7 +48,7 @@ function getBR(PostalCode, res){
 		const json = response.data
 		var result = {};
 		if(json.erro === undefined){
-			result['street'] = json.logadouro;
+			result['street'] = json.logradouro;
 			result['council'] = json.bairro;
 			result['city'] = json.localidade;
 			result['state'] = json.uf;
