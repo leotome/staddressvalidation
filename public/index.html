@@ -1,71 +1,94 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>Address Validation API | Leonardo Oliveira</title>
+        
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
         <script src="js/utils.js"></script>
     </head>
-    <body onload="onLoad()">
+    <body id="page-top" onload="onLoad()">
+        <!-- Navigation-->
         <header>
-            <h1>Address Validation API</h1>
-            <nav>
-                <ul>
-                    <li><a href="#section_introduction">Introduction</a></li>
-                    <li><a href="#section_what">What does it does for you?</a></li>
-                    <li><a href="#section_howto">How to operate?</a></li>
-                    <li><a href="#">Login</a></li>
-                </ul>
+            <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+                <div class="container">
+                    <a class="navbar-brand" href="#page-top">Address Validation API</a>
+                    <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        Menu
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#why">Why?</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#what">What does it does for me?</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#how">How to operate?</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">Login | Register</a></li>
+                        </ul>
+                    </div>
+                </div>
             </nav>
         </header>
-        <section id="section_introduction">
-            <h1>Introduction</h1>
-            <p>The Address Validation Application Programming Interface (API) can provide direct automated integration in your application about correct and valid address information.</p>
-            <p>This API uses two inputs to validate an address: "Country" and "Postal Code". When both are provided, and if valid data is provided, the server will be able to return the full address in JSON format.</p>
-        </section>
-        <section id="section_what">
-            <h1>What does it does for you?</h1>
-            <p>The Address Validation API is a valuable addition to any business. It allows to reduce the chance of bad data quality, and avoids incorrect information, which can interfere with the fluidity of your business. It's currently available to retrieve information about the following countries:</p>
-            <ul>
-                <li>Brazil</li>
-                <li>Portugal</li>
-            </ul>
-        </section>
-        <section id="section_howto">
-            <h1>How to operate?</h1>
-            <p>This API is REST-compliant, which means, it uses the HTTP verb "GET".</p>
-            <p id="section_howto_apiuri">If you see this message, please contact support.</p>
-            <p>Where:</p>
-            <ul>
-                <li>{A} is the Country in <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2</a> format;</li>
-                <li>{B} is the Postal Code.</li>
-            </ul>
-            <p>The server returns the following JSON structure:</p>
-            <p>
-                <pre>
-                <code>
-                {
-                    "street" : string,
-                    "postalcode" : string,
-                    "country" : string,
-                    "council" : string,
-                    "city" : string,
-                    "state" : string
-                }
-                </code>
-                </pre>
-            </p>
-            <p><b>Example</b></p>
-            <p id="section_howto_apiuri_example">If you see this message, please contact support.</p>
-            <p>Returns the following:</p>
-            <p>
-                <pre>
-                <code id="section_howto_apiuri_example_code">
-                Loading...
-                </code>
-                </pre>
-            </p>
-        </section>        
-        <footer>
-            <p id="footer"></p>
+
+        <article class="masthead page-section" id="why">
+            <div class="container">
+                <h2 class="page-section-heading text-center text-uppercase">WHY?</h2>
+                <div class="divider-custom divider-light">
+                </div>
+                <div class="row justify-content-center">
+                    <p class="lead">The Address Validation Application Programming Interface (API) can provide direct automated integration in your application about correct and valid address information.</p>
+                    <p class="lead">This API uses two inputs to validate an address: "Country" and "Postal Code". When both are provided, and if valid data is provided, the server will be able to return the full address in JSON format.</p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="page-section bg-primary text-white mb-0" id="what">
+            <div class="container">
+                <h2 class="page-section-heading text-center text-uppercase text-white text-secondary mb-0">WHAT DOES IT DOES FOR YOU?</h2>
+                <div class="divider-custom divider-light">
+                </div>
+                <div class="row justify-content-center">
+                    <p class="lead">The Address Validation API is a valuable addition to any business. It allows to reduce the chance of bad data quality, and avoids incorrect information, which can interfere with the fluidity of your business.</p>
+                    <p class="lead">
+                        It's currently available to retrieve information about the following countries:
+                        <ul>
+                            <li>Brazil</li>
+                            <li>Portugal</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <article class="page-section" id="how">
+            <div class="container">
+                <h2 class="page-section-heading text-center text-uppercase">How to operate?</h2>
+                <div class="divider-custom divider-light">
+                </div>
+                <div class="row justify-content-center">
+                    <p class="lead">This API is REST-compliant, which means, it uses the HTTP verb "GET".</p>
+                    <p class="lead"><span id="how_apiurl">If you see this message, please contact support.</span></p>
+                    <p class="lead"><u>{A}</u> is the Country in <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2</a> format, and <u>{B}</u> is the Postal Code.</p>
+                    <p class="lead">The server returns the following JSON structure:</p>
+                    <p class="lead">{ "street" : string, "postalcode" : string, "country" : string, "council" : string, "city" : string, "state" : string }</p>
+                    <p class="lead"><u>Example:</u></p>
+                    <p class="lead"><span id="how_apiurl_example">If you see this message, please contact support.</span></p>
+                    <p class="lead">Returns...</p>
+                    <p class="lead"><span id="how_apiurl_example_response">If you see this message, please contact support.</span></p>
+                </div>
+            </div>
+        </article>
+
+        <footer class="copyright py-4 text-center text-white">
+            <div class="container"><small><span id="copyright_footer">If you see this message, please contact support.</span></small></div>
         </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>         <!-- Bootstrap core JS-->
+        <script src="js/strt.js"></script> <!-- Core START BOOTSTRAP JS-->
     </body>
 </html>

@@ -10,8 +10,8 @@ function getCurrentYear(){
 }
 
 function setFooter(){
-    var element = document.getElementById('copyright_footer');
-    element.innerHTML = 'Copyright &copy; ' + this.getCurrentYear() + ' Leonardo Oliveira';
+    var element = document.getElementById('footer');
+    element.innerHTML = '&copy; ' + this.getCurrentYear() + ' Leonardo Oliveira';
 }
 
 function getAPIURI(){
@@ -24,14 +24,15 @@ function getAPIURI(){
 
 function setAPIURIs(){
     var URI = this.getAPIURI();
-    var how_apiurl = document.getElementById('how_apiurl');
-    how_apiurl.innerHTML = URI;
-    var how_apiurl_example = document.getElementById('how_apiurl_example');
-    how_apiurl_example.innerHTML = URI.replace('{A}', 'PT').replace('{B}', '1169-023');
+    var section_howto_apiuri = document.getElementById('section_howto_apiuri');
+    section_howto_apiuri.innerHTML = URI;
+
+    var section_howto_apiuri_example = document.getElementById('section_howto_apiuri_example');
+    section_howto_apiuri_example.innerHTML = URI.replace('{A}', 'PT').replace('{B}', '1169-023');
     this.queryServer(URI.replace('{A}', 'PT').replace('{B}', '1169-023'))
     .then(response => {
-        var how_apiurl_example_response = document.getElementById('how_apiurl_example_response');
-        how_apiurl_example_response.textContent = JSON.stringify(response);
+        var section_howto_apiuri_example_code = document.getElementById('section_howto_apiuri_example_code');
+        section_howto_apiuri_example_code.textContent = JSON.stringify(response);
     });
 }
 
