@@ -9,7 +9,6 @@ function logoutUser(){
 
 function getUser(){
     const token = localStorage.getItem("staddress_token");
-    console.log(token);
     const params = {
         method: "POST",
         headers: {
@@ -31,6 +30,4 @@ function getUser(){
       .catch(async (error) => {
         alert(JSON.stringify(error));
       })
-
-
 }

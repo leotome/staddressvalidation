@@ -1,7 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const auth_controller = require('../controllers/auth.js');
+const { authenticateToken } = require('../controllers/auth.js');
 
 const demo_allowed = [
 	{ id : 'PT_1169-023', country : 'PT', postalcode : '1169-023'},
@@ -11,7 +11,7 @@ const demo_allowed = [
 exports.search = (req, res) => {
 	var RequestCountry = req.params.country.toUpperCase();
 	var RequestPostalCode = req.params.postalcode;
-	var IsAuthenticated = auth_controller.authenticateToken(req, res);
+	var IsAuthenticated = authenticateToken(req, res);
 	if( IsAuthenticated == true || ( IsAuthenticated == false && demo_allowed.find(({id}) => id == RequestCountry + '_' + RequestPostalCode) !== undefined ) ){
 		switch (RequestCountry) {
 			case 'PT':
@@ -21,7 +21,7 @@ exports.search = (req, res) => {
 				if(format && correctlength){
 					var result = getPT(RequestPostalCode, res);
 				} else {
-					return res.sendStatus(400).send({
+					return res.status(400).send({
 						status : 400,
 						message : 'Incorrect string format for PT. Please ensure that you\'re using the format XXXX-XXX.'
 					});
@@ -34,14 +34,14 @@ exports.search = (req, res) => {
 				if(format && correctlength){
 					var result = getBR(RequestPostalCode, res);
 				} else {
-					return res.sendStatus(400).send({
+					return res.status(400).send({
 						status : 400,
 						message : 'Incorrect string format for BR. Please ensure that you\'re using the format XXXXX-XXX.'
 					});
 				}
 				break;
 			default:
-				return res.sendStatus(500).send({
+				return res.status(500).send({
 					status : 500, 
 					message : 'Unsupported country'
 				});
@@ -72,10 +72,10 @@ function getBR(PostalCode, res){
 				status : 404, 
 				message : 'Not found.'
 			}
-			res.sendStatus(404).send(result);
+			res.status(404).send(result);
 		}
 	})
-	return result;
+	return {};
 }
 
 function getPT(PostalCode, res){
@@ -126,13 +126,13 @@ function getPT(PostalCode, res){
 					status : 503, 
 					message : 'Service Unavailable.'
 				}
-				res.sendStatus(503).send(result);
+				res.status(503).send(result);
 			} else {
 				result = {
 					status : 404, 
 					message : 'Not found.'
 				}
-				res.sendStatus(404).send(result);
+				res.status(404).send(result);
 			}
 		}
 		return result

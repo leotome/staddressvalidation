@@ -6,11 +6,16 @@ const jwt = require("jsonwebtoken");
 
 //https://stackoverflow.com/questions/5797852/in-node-js-how-do-i-include-functions-from-my-other-files
 module.exports = {
-    authenticateToken : authenticateToken,
+    authenticateToken : function(req, res) {
+        authenticateToken(req, res);
+        return HelperIsAutenticated;
+    },
     registerUser : registerUser,
     loginUser : loginUser,
     verifyToken : verifyToken
 }
+
+var HelperIsAutenticated = null;
 
 function authenticateToken(req, res) {
     const Authorization = req.headers["authorization"];
@@ -18,11 +23,14 @@ function authenticateToken(req, res) {
         const token = Authorization && Authorization.split(" ")[1];
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
             if (err) {
+                HelperIsAutenticated = false;
                 return false;
             }
+            HelperIsAutenticated = true;
             return true;
-          });        
+          });
     } else {
+        HelperIsAutenticated = false;
         return false;
     }
 }
