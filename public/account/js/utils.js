@@ -75,7 +75,7 @@ function searchAddress(){
             var fields_html = '<div class="col-md-6 col-lg-4 mb-5">' + street_field + city_field + state_field + postalcode_field + country_field + '</div>';
 
             var google_maps_query_string = (res.street + ' ' + res.city + ' ' + res.state + ' ' + res.postalcode + ' ' + res.country).replace(' ', '%20');
-            var google_maps_embed_map = `<div class="mapouter"><div class="gmap_canvas"><iframe id="gmap_canvas" src="https://maps.google.com/maps?q=${google_maps_query_string}&t=&z=11&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div></div>`;
+            var google_maps_embed_map = `<div class="mapouter"><div class="gmap_canvas"><iframe id="gmap_canvas" style="width: 100%; height: 360px;" src="https://maps.google.com/maps?q=${google_maps_query_string}&t=&z=11&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div></div>`;
             
             var google_maps_embed_map_html = '<div class="col-md-6 col-lg-4 mb-5">' + google_maps_embed_map + '</div>';
 
