@@ -1,8 +1,14 @@
 module.exports = app => {
-    const data_controller = require('../controllers/data.js');
     var router = require('express').Router();
 
-    router.get('/:country/:postalcode', data_controller.search);
+    const data_controller = require('../controllers/data.js');
+
+    router.get('/search/:country/:postalcode', data_controller.search);
+
+    const auth_controller = require('../controllers/auth.js');
+
+    router.post('/auth/register', auth_controller.registerUser);
+    router.post('/auth/login', auth_controller.loginUser);
 
     app.use('/api', router);
 }

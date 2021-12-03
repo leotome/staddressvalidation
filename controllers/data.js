@@ -1,45 +1,54 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+const auth_controller = require('../controllers/auth.js');
+
+const demo_allowed = [
+	{ id : 'PT_1169-023', country : 'PT', postalcode : '1169-023'},
+	{ id : 'BR_40110-909', country : 'BR', postalcode : '40110-909'},
+]
+
 exports.search = (req, res) => {
 	var RequestCountry = req.params.country.toUpperCase();
 	var RequestPostalCode = req.params.postalcode;
-	switch (RequestCountry) {
-		case 'PT':
-			var regex = new RegExp('[0-9]{4}-[0-9]{3}');
-			var format = regex.test(RequestPostalCode);
-			var correctlength = RequestPostalCode.length == 8;
-			if(format && correctlength){
-				var result = getPT(RequestPostalCode, res);
-			} else {
-				res.sendStatus(400);
-				return res.send({
-					status : 400, 
-					message : 'Incorrect string format for PT. Please ensure that you\'re using the format XXXX-XXX.'
+	var IsAuthenticated = auth_controller.authenticateToken(req, res);
+	if( IsAuthenticated == true || ( IsAuthenticated == false && demo_allowed.find(({id}) => id == RequestCountry + '_' + RequestPostalCode) !== undefined ) ){
+		switch (RequestCountry) {
+			case 'PT':
+				var regex = new RegExp('[0-9]{4}-[0-9]{3}');
+				var format = regex.test(RequestPostalCode);
+				var correctlength = RequestPostalCode.length == 8;
+				if(format && correctlength){
+					var result = getPT(RequestPostalCode, res);
+				} else {
+					return res.sendStatus(400).send({
+						status : 400,
+						message : 'Incorrect string format for PT. Please ensure that you\'re using the format XXXX-XXX.'
+					});
+				}
+				break;
+			case 'BR':
+				var regex = new RegExp('[0-9]{5}-[0-9]{3}');
+				var format = regex.test(RequestPostalCode);
+				var correctlength = RequestPostalCode.length == 9;
+				if(format && correctlength){
+					var result = getBR(RequestPostalCode, res);
+				} else {
+					return res.sendStatus(400).send({
+						status : 400,
+						message : 'Incorrect string format for BR. Please ensure that you\'re using the format XXXXX-XXX.'
+					});
+				}
+				break;
+			default:
+				return res.sendStatus(500).send({
+					status : 500, 
+					message : 'Unsupported country'
 				});
-			}
-			break;
-		case 'BR':
-			var regex = new RegExp('[0-9]{5}-[0-9]{3}');
-			var format = regex.test(RequestPostalCode);
-			var correctlength = RequestPostalCode.length == 9;
-			if(format && correctlength){
-				var result = getBR(RequestPostalCode, res);
-			} else {
-				res.sendStatus(400);
-				return res.send({
-					status : 400, 
-					message : 'Incorrect string format for BR. Please ensure that you\'re using the format XXXXX-XXX.'
-				});
-			}
-			break;				
-		default:
-			res.sendStatus(500);
-			return res.send({
-				status : 500, 
-				message : 'Unsupported country'
-			});
-			break;
+				break;
+		}
+	} else {
+		res.sendStatus(401);
 	}
 }
 
@@ -57,16 +66,16 @@ function getBR(PostalCode, res){
 			result['state'] = json.uf;
 			result['postalcode'] = json.cep;
 			result['country'] = 'BR';
+			res.send(result);
 		} else {
-			res.sendStatus(404);
 			result = {
 				status : 404, 
 				message : 'Not found.'
 			}
+			res.sendStatus(404).send(result);
 		}
-		res.send(result);
 	})
-	return {}
+	return result;
 }
 
 function getPT(PostalCode, res){
@@ -110,22 +119,22 @@ function getPT(PostalCode, res){
 					}
 				}
 			}
+			res.send(result);
 		} else {
 			if(badserver == true){
-				res.sendStatus(503);
 				result = {
 					status : 503, 
 					message : 'Service Unavailable.'
 				}
+				res.sendStatus(503).send(result);
 			} else {
-				res.sendStatus(404);
 				result = {
 					status : 404, 
 					message : 'Not found.'
 				}
+				res.sendStatus(404).send(result);
 			}
 		}
-		res.send(result);
 		return result
 	})
 }
