@@ -14,16 +14,16 @@ function setFooter(){
     element.innerHTML = 'Copyright &copy; ' + this.getCurrentYear() + ' Leonardo Oliveira';
 }
 
-function getAPIURI(){
+function getAPIURI(route){
     var currentPort = (window.location.port == '' || window.location.port == 0) ? '' : ':' + window.location.port;
     var currentProtocol = window.location.protocol;
     var currentHost = window.location.hostname;
-    var URI = currentProtocol + '//' + currentHost + currentPort + '/api/search/{A}/{B}'
+    var URI = currentProtocol + '//' + currentHost + currentPort + '/api/' + route;
     return URI;
 }
 
 function setAPIURIs(){
-    var URI = this.getAPIURI();
+    var URI = this.getAPIURI('search') + '/{A}/{B}';
     var how_apiurl = document.getElementById('how_apiurl');
     how_apiurl.innerHTML = URI;
     var how_apiurl_example = document.getElementById('how_apiurl_example');
@@ -35,8 +35,8 @@ function setAPIURIs(){
     });
 }
 
-async function queryServer(URI_Request){
-    let response = await fetch(URI_Request);
+async function queryServer(request_uri, headers){
+    let response = await fetch(request_uri, headers);
     let data = await response.json();
     return data;
 }

@@ -13,10 +13,10 @@ exports.cRud_login = (email) => {
 		const filter = { _id : email };
 		db.users.findOne(filter, (error, user) => {
 			if (error) {
-				reject({ msg: "Problemas na base de dados!" });
+				reject({ msg: "Server error." });
 			} else {
 				if (user == null) {
-					reject({ msg: "Utilizador inexistente!" });
+					reject({ msg: "This user does not exist." });
 				} else {
 					resolve(user);
 				}
@@ -31,7 +31,7 @@ exports.Crud_registar = (email, password) => {
 		const filter = { _id : email };
 		db.users.findOne(filter, (error, user) => {
 			if (error) {
-				reject({ msg: "Problemas na base de dados!" });
+				reject({ msg: "Server error." });
 			} else {
 				if (user == null) {
 					var data = { _id: email, password: password };
@@ -43,7 +43,7 @@ exports.Crud_registar = (email, password) => {
 						}
 					});
 				} else {
-					reject({ msg: "Utilizador existente!" });
+					reject({ msg: "This e-mail is already registered. If you believe this is a mistake, please contact support." });
 				}
 			}
 		});

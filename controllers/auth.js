@@ -34,9 +34,10 @@ async function registerUser(req, res){
         return res.status(400).send(message);
     }
     try {
+        const body = req.body;
         const salt = await bcrypt.genSalt();
-        const hashPassword = await bcrypt.hash(req.body.password, salt);
-        const email = req.body.email;
+        const hashPassword = await bcrypt.hash(body.password, salt);
+        const email = body.email;
         const password = hashPassword;
         //const confirmationToken = jwt.sign(req.body.email, process.env.ACCESS_TOKEN_SECRET);
         db.Crud_registar(email, password) // C: Create
@@ -44,6 +45,9 @@ async function registerUser(req, res){
             var response = { message: "User created successfully!" };
             res.status(201).send(response);
             console.log("Controller - utilizador registado: " + JSON.stringify(data));
+        })
+        .catch((error) => {
+            res.status(400).send({ message: error.msg });
         });
     } catch {
         return res.status(400).send({ message: "Bad Request" });
