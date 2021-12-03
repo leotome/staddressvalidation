@@ -12,6 +12,7 @@ exports.search = (req, res) => {
 			if(format && correctlength){
 				var result = getPT(RequestPostalCode, res);
 			} else {
+				res.sendStatus(400);
 				return res.send({
 					status : 400, 
 					message : 'Incorrect string format for PT. Please ensure that you\'re using the format XXXX-XXX.'
@@ -25,6 +26,7 @@ exports.search = (req, res) => {
 			if(format && correctlength){
 				var result = getBR(RequestPostalCode, res);
 			} else {
+				res.sendStatus(400);
 				return res.send({
 					status : 400, 
 					message : 'Incorrect string format for BR. Please ensure that you\'re using the format XXXXX-XXX.'
@@ -32,8 +34,9 @@ exports.search = (req, res) => {
 			}
 			break;				
 		default:
+			res.sendStatus(500);
 			return res.send({
-				status : 400, 
+				status : 500, 
 				message : 'Unsupported country'
 			});
 			break;
@@ -55,6 +58,7 @@ function getBR(PostalCode, res){
 			result['postalcode'] = json.cep;
 			result['country'] = 'BR';
 		} else {
+			res.sendStatus(404);
 			result = {
 				status : 404, 
 				message : 'Not found.'
@@ -108,11 +112,13 @@ function getPT(PostalCode, res){
 			}
 		} else {
 			if(badserver == true){
+				res.sendStatus(503);
 				result = {
 					status : 503, 
 					message : 'Service Unavailable.'
 				}
 			} else {
+				res.sendStatus(404);
 				result = {
 					status : 404, 
 					message : 'Not found.'

@@ -1,8 +1,8 @@
 module.exports = app => {
-    const controller = require('../controllers/controller.js');
+    const data_controller = require('../controllers/data.js');
     var router = require('express').Router();
 
-    router.get('/:country/:postalcode', controller.search);
+    router.get('/:country/:postalcode', data_controller.search);
 
     app.use('/api', router);
 }
