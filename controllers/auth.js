@@ -8,13 +8,14 @@ const jwt = require("jsonwebtoken");
 module.exports = {
     authenticateToken : authenticateToken,
     registerUser : registerUser,
-    loginUser : loginUser
+    loginUser : loginUser,
+    verifyToken : verifyToken
 }
 
 function authenticateToken(req, res) {
-    const Authorization = req.headers["Authorization"];
+    const Authorization = req.headers["authorization"];
     if(Authorization !== undefined){
-        const token = authHeader && authHeader.split(" ")[1];
+        const token = Authorization && Authorization.split(" ")[1];
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
             if (err) {
                 return false;
@@ -28,7 +29,6 @@ function authenticateToken(req, res) {
   
 // REGISTAR - cria um novo utilizador
 async function registerUser(req, res){
-    console.log("Registar novo utilizador");
     if (!req.body) {
         const message = { message: "Body cannot be empty." };
         return res.status(400).send(message);
@@ -42,9 +42,12 @@ async function registerUser(req, res){
         //const confirmationToken = jwt.sign(req.body.email, process.env.ACCESS_TOKEN_SECRET);
         db.Crud_registar(email, password) // C: Create
         .then((data) => {
-            var response = { message: "User created successfully!" };
+            var user = {
+                email : email,
+                password : password
+            }
+            var response = { message: "User created successfully!", user : user };
             res.status(201).send(response);
-            console.log("Controller - utilizador registado: " + JSON.stringify(data));
         })
         .catch((error) => {
             res.status(400).send({ message: error.msg });
@@ -56,7 +59,6 @@ async function registerUser(req, res){
 
 // LOGIN - autentica um utilizador
 async function loginUser(req, res) {
-    console.log("Autenticação de um utilizador");
     if (!req.body) {
         const message = { message: "Body cannot be empty." };
         return res.status(400).send(message);
@@ -66,8 +68,8 @@ async function loginUser(req, res) {
     const email = req.body.email;
     const password = hashPassword;
     db.cRud_login(email)
-    .then(async (dados) => {
-        if( await bcrypt.compare(req.body.password, dados.password) ) {
+    .then(async (data) => {
+        if( await bcrypt.compare(req.body.password, data.password) ) {
             const user = { name: email };
             const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
             res.json({ accessToken: accessToken });
@@ -81,3 +83,28 @@ async function loginUser(req, res) {
         return res.status(400).send(response);
     });
 };
+
+async function verifyToken(req, res) {
+    const Authorization = req.headers["authorization"];
+    const token = Authorization && Authorization.split(" ")[1];
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, result) => {
+        if(err) {
+            return res.status(401);
+        }
+        if(result) {
+            var email = result.name;
+            db.cRud_login(email)
+            .then(async (data) => {
+                var response = {
+                    _id : data._id,
+                    token : token
+                };
+                return res.send(response);
+            })
+            .catch((response) => {
+                console.log(response);
+                return res.status(401);
+            })
+        }
+    });
+}

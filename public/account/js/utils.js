@@ -23,7 +23,6 @@ function getAPIURI(route){
 }
 
 function checkSession(){
-    var URI = this.getAPIURI('search') + '/{A}/{B}';
     var localToken = localStorage.getItem("staddress_token")
     if(localToken == null){
         var currentPort = (window.location.port == '' || window.location.port == 0) ? '' : ':' + window.location.port;
@@ -32,7 +31,7 @@ function checkSession(){
         var URI = currentProtocol + '//' + currentHost + currentPort;
         window.open(URI, "_self");
     } else {
-      //TODO FINISH LOADING  
+      this.getUser();
     }
 }
 

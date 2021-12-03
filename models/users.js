@@ -7,7 +7,7 @@ Object.keys(db).forEach((key) => {
     db[key].loadDatabase();
 });
 
-// Retorna o utilizador e sua password encriptadas
+// Login user
 exports.cRud_login = (email) => {
 	return new Promise((resolve, reject) => {
 		const filter = { _id : email };
@@ -25,7 +25,7 @@ exports.cRud_login = (email) => {
 	});
 };
 
-// Regista o utilizador
+// Creates user
 exports.Crud_registar = (email, password) => {
 	return new Promise((resolve, reject) => {
 		const filter = { _id : email };

@@ -27,8 +27,8 @@ function registerUser(){
     .then(async (response) => {
         var result = await response.json();
         let register_servermsg = document.getElementById("register_servermsg");
-        register_servermsg.innerHTML = result.message;
-        ///localStorage.setItem("staddress_token", token);
+        register_servermsg.innerHTML = result.message + '. In order to continue, please close this popup, then click "Login".';
+        //localStorage.setItem("staddress_token", result.user.password);
     })
     .catch((error) => {
         alert('Oops... An unexpected error ocurred.');
@@ -74,7 +74,7 @@ function loginUser(){
         window.open(URI + '/account', "_self");        
 
     })
-    .catch((error) => {
+    .catch(async (error) => {
         alert(JSON.stringify(error));
     })
 }

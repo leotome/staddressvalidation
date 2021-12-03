@@ -9,6 +9,7 @@ module.exports = app => {
 
     router.post('/auth/register', auth_controller.registerUser);
     router.post('/auth/login', auth_controller.loginUser);
+    router.post('/auth/token', auth_controller.verifyToken);
 
     app.use('/api', router);
 }
