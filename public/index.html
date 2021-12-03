@@ -25,11 +25,13 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#why">Why?</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#what">What does it does for me?</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#how">How to operate?</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-bs-toggle="modal" data-bs-target="#login_modal">Login</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-bs-toggle="modal" data-bs-target="#register_modal">Register</a></li>
+                            <li class="nav-item mx-0 mx-lg-1" id="nav_why"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#why">Why?</a></li>
+                            <li class="nav-item mx-0 mx-lg-1" id="nav_what"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#what">What does it does for me?</a></li>
+                            <li class="nav-item mx-0 mx-lg-1" id="nav_how"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#how">How to operate?</a></li>
+                            <li class="nav-item mx-0 mx-lg-1" id="nav_login"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-bs-toggle="modal" data-bs-target="#login_modal">Login</a></li>
+                            <li class="nav-item mx-0 mx-lg-1" id="nav_register"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-bs-toggle="modal" data-bs-target="#register_modal">Register</a></li>
+                            <li class="nav-item mx-0 mx-lg-1" id="nav_account"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/account">Account</a></li>
+                            <li class="nav-item mx-0 mx-lg-1" id="nav_logout"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-bs-toggle="modal" data-bs-target="#logout_modal">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -170,6 +172,38 @@
                                     <div class="row justify-content-center">
                                         <div class="col-md-6 col-lg-4 mb-5"><button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button></div>
                                         <div class="col-md-6 col-lg-4 mb-5"><button type="button" class="btn btn-success" onclick="registerUser()">Submit</button></div>
+                                    </div>                                    
+
+                                    <p class="mb-4"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-modal modal fade" id="logout_modal" tabindex="-1" aria-labelledby="logout_modal" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                    <div class="modal-body text-center pb-5">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Logout</h2>
+
+                                    <div class="divider-custom">
+                                    </div>
+                                    
+                                    <div class="row justify-content-center">
+                                        <p class="lead">If you continue, you'll be logged out.</p>
+                                    </div>           
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6 col-lg-4 mb-5"><button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button></div>
+                                        <div class="col-md-6 col-lg-4 mb-5"><button type="button" class="btn btn-success" onclick="logoutUser()">Logout</button></div>
                                     </div>                                    
 
                                     <p class="mb-4"></p>

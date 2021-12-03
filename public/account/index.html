@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Address Validation API | Leonardo Oliveira</title>
+        
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../css/styles.css" rel="stylesheet" />
+        <script src="js/utils.js"></script>
+    </head>
+    <body id="page-top" onload="onLoad()">
+        <!-- Navigation-->
+        <header>
+            <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+                <div class="container">
+                    <a class="navbar-brand" href="#page-top">Address Validation API</a>
+                    <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        Menu
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-bs-toggle="modal" data-bs-target="#logout_modal">Logout</a></li>
+                        </ul>
+                    </div>                    
+                </div>
+            </nav>
+        </header>
+
+        <article class="masthead page-section bg-primary text-white" id="auth_token">
+            <div class="container">
+                <h2 id="auth_token_welcome" class="page-section-heading text-center text-uppercase">Loading...</h2>
+                <div class="divider-custom divider-light">
+                </div>
+                <div class="row justify-content-center">
+                    <p class="lead">Here's your API Authorization token: <span id="auth_token_display">Loading...</span></p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="page-section mb-0" id="test_api">
+            <div class="container">
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">TEST API</h2>
+                <div class="divider-custom divider-light">
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <label class="form-label">Country</label>
+                        <select class="form-control" id="test_form_country">
+                            <option disabled selected></option>
+                            <option value="BR">Brazil</option>
+                            <option value="PT">Portugal</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <label class="form-label">Postal Code</label>
+                        <input type="text" class="form-control" id="test_form_postal_code">
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4 mb-5"></div>
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <button type="button" class="btn btn-success" onclick="searchAddress()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer class="copyright py-4 text-center text-white">
+            <div class="container"><small><span id="copyright_footer">If you see this message, please contact support.</span></small></div>
+        </footer>
+
+        <div class="portfolio-modal modal fade" id="logout_modal" tabindex="-1" aria-labelledby="logout_modal" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                    <div class="modal-body text-center pb-5">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Logout</h2>
+
+                                    <div class="divider-custom">
+                                    </div>
+                                    
+                                    <div class="row justify-content-center">
+                                        <p class="lead">If you continue, you'll be logged out.</p>
+                                    </div>           
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6 col-lg-4 mb-5"><button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button></div>
+                                        <div class="col-md-6 col-lg-4 mb-5"><button type="button" class="btn btn-success" onclick="logoutUser()">Logout</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>         <!-- Bootstrap core JS-->
+        <script src="../js/strt.js"></script> <!-- Core START BOOTSTRAP JS-->
+        <script src="js/auth.js"></script> <!-- Auth modules -->
+    </body>
+</html>

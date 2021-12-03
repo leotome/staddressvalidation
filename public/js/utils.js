@@ -1,6 +1,7 @@
 function onLoad(){
     this.setAPIURIs();
     this.setFooter();
+    this.checkSession();
 }
 
 function getCurrentYear(){
@@ -33,6 +34,21 @@ function setAPIURIs(){
         var how_apiurl_example_response = document.getElementById('how_apiurl_example_response');
         how_apiurl_example_response.textContent = JSON.stringify(response);
     });
+}
+
+function checkSession(){
+    var localToken = localStorage.getItem("staddress_token");
+    if(localToken == null){
+        var nav_logout = document.getElementById('nav_logout');
+        var nav_account = document.getElementById('nav_account');
+        nav_logout.remove();
+        nav_account.remove();
+    } else {
+        var nav_login = document.getElementById('nav_login');
+        var nav_register = document.getElementById('nav_register');
+        nav_login.remove();
+        nav_register.remove();
+    }
 }
 
 async function queryServer(request_uri, headers){
