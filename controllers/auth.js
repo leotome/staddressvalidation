@@ -12,7 +12,6 @@ module.exports = {
 }
 
 function authenticateToken(req, res) {
-    console.log("A autorizar...");
     const Authorization = req.headers["Authorization"];
     if(Authorization !== undefined){
         const token = authHeader && authHeader.split(" ")[1];
