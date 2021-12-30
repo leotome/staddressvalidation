@@ -63,16 +63,24 @@ function loginUser(){
     fetch(server_url, params)
     .then(async (response) => {
         var result = await response.json();
-
-		const token = result.accessToken;
-		localStorage.setItem("staddress_token", token);
-
-        var currentPort = (window.location.port == '' || window.location.port == 0) ? '' : ':' + window.location.port;
-        var currentProtocol = window.location.protocol;
-        var currentHost = window.location.hostname;
-        var URI = currentProtocol + '//' + currentHost + currentPort;
-        window.open(URI + '/account', "_self");        
-
+        // This piece was not being handled in the previous version
+        // That's a "hot fix", it's not done properly. Must be fixed soon.
+        if(result.msg){
+            let login_servermsg = document.getElementById("login_servermsg");
+            login_servermsg.innerHTML = result.msg;
+        } else if(result.message){
+            let login_servermsg = document.getElementById("login_servermsg");
+            login_servermsg.innerHTML = result.message;
+        } else {
+            const token = result.accessToken;
+            localStorage.setItem("staddress_token", token);          
+    
+            var currentPort = (window.location.port == '' || window.location.port == 0) ? '' : ':' + window.location.port;
+            var currentProtocol = window.location.protocol;
+            var currentHost = window.location.hostname;
+            var URI = currentProtocol + '//' + currentHost + currentPort;
+            window.open(URI + '/account', "_self");
+        }
     })
     .catch(async (error) => {
         alert(JSON.stringify(error));
